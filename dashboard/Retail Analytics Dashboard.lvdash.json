@@ -1,0 +1,403 @@
+{
+  "datasets": [
+    {
+      "name": "39ac4ecd",
+      "displayName": "ventas_por_categoria",
+      "queryLines": [
+        "SELECT year_month, product_category, total_revenue\r\n",
+        "FROM retail_project_prod.gold.ventas_por_categoria\r\n",
+        "ORDER BY year_month"
+      ]
+    },
+    {
+      "name": "db85d5a7",
+      "displayName": "top_productos",
+      "queryLines": [
+        "SELECT product_name, department, total_pedidos\r\n",
+        "FROM retail_project_prod.gold.top_productos\r\n",
+        "ORDER BY total_pedidos DESC"
+      ]
+    },
+    {
+      "name": "42c2b995",
+      "displayName": "eficiencia_marketing",
+      "queryLines": [
+        "SELECT product_category, roi_marketing, total_revenue\r\n",
+        "FROM retail_project_prod.gold.eficiencia_marketing\r\n",
+        "ORDER BY roi_marketing DESC"
+      ]
+    },
+    {
+      "name": "b22f7e7c",
+      "displayName": "actividad_por_horario",
+      "queryLines": [
+        "SELECT time_slot, SUM(total_ordenes) AS ordenes_totales\r\n",
+        "FROM retail_project_prod.gold.actividad_por_horario\r\n",
+        "GROUP BY time_slot\r\n",
+        "ORDER BY ordenes_totales DESC"
+      ]
+    },
+    {
+      "name": "56d35910",
+      "displayName": "kpi_resumen",
+      "queryLines": [
+        "SELECT\r\n",
+        "    ROUND(SUM(total_revenue), 2)         AS revenue_total,\r\n",
+        "    SUM(total_units_sold)                AS unidades_totales,\r\n",
+        "    COUNT(DISTINCT product_category)     AS categorias\r\n",
+        "FROM retail_project_prod.gold.ventas_por_categoria"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "39d63472",
+      "displayName": "Retail Analytics",
+      "layout": [
+        {
+          "widget": {
+            "name": "revenue-mensual-categoria",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "39ac4ecd",
+                  "fields": [
+                    {
+                      "name": "product_category",
+                      "expression": "`product_category`"
+                    },
+                    {
+                      "name": "year_month",
+                      "expression": "`year_month`"
+                    },
+                    {
+                      "name": "sum(total_revenue)",
+                      "expression": "SUM(`total_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Revenue mensual por categoría"
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "year_month",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "product_category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "top-20-productos-mas-pedidos",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "db85d5a7",
+                  "fields": [
+                    {
+                      "name": "product_name",
+                      "expression": "`product_name`"
+                    },
+                    {
+                      "name": "sum(total_pedidos)",
+                      "expression": "SUM(`total_pedidos`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Top 20 productos más pedidos"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "product_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(total_pedidos)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "roi-marketing-por-categoria",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "42c2b995",
+                  "fields": [
+                    {
+                      "name": "product_category",
+                      "expression": "`product_category`"
+                    },
+                    {
+                      "name": "sum(roi_marketing)",
+                      "expression": "SUM(`roi_marketing`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "ROI de marketing por categoría"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "product_category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(roi_marketing)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "pedidos-franja-horaria",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b22f7e7c",
+                  "fields": [
+                    {
+                      "name": "time_slot",
+                      "expression": "`time_slot`"
+                    },
+                    {
+                      "name": "sum(ordenes_totales)",
+                      "expression": "SUM(`ordenes_totales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Pedidos por franja horaria"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "time_slot",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(ordenes_totales)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "revenue-total",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "56d35910",
+                  "fields": [
+                    {
+                      "name": "sum(revenue_total)",
+                      "expression": "SUM(`revenue_total`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Revenue Total"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(revenue_total)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "4ee85991",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "56d35910",
+                  "fields": [
+                    {
+                      "name": "sum(unidades_totales)",
+                      "expression": "SUM(`unidades_totales`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Unidades"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(unidades_totales)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "13cf3a2f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "56d35910",
+                  "fields": [
+                    {
+                      "name": "sum(categorias)",
+                      "expression": "SUM(`categorias`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Categoría"
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(categorias)"
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
