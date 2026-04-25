@@ -189,6 +189,21 @@ push a main
 - **PySpark**
 - **GitHub Actions**
 
+## 🔍 Evidencias de Ejecución
+
+### GitHub Actions CI/CD
+
+![GitHub Actions 1](evidencias/GitHub%20Actions%201.png)
+![GitHub Actions 2](evidencias/GitHub%20Actions%202.png)
+![GitHub Actions 3](evidencias/GitHub%20Actions%203.png)
+
+### Workflow WF_RETAIL_ETL en Databricks PROD
+
+![Workflow 1](evidencias/Workflow%20WF_REATIL_ETL%201.png)
+![Workflow 2](evidencias/Workflow%20WF_REATIL_ETL%202.png)
+![Workflow 3](evidencias/Workflow%20WF_REATIL_ETL%203.png)
+![Workflow 4](evidencias/Workflow%20WF_REATIL_ETL%204.png)
+
 ## 👤 Autor
 
 ### Jhon Galvez
