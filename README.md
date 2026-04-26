@@ -212,6 +212,8 @@ push a main
 
 **Data Engineering** | **Azure Databricks** | **Delta Lake** | **CI/CD**
 
+📜 Certificaciones Databricks Academy disponibles en [`/certificaciones`](./certificaciones)
+
 ---
 
 **Proyecto**: Ingeniería de Datos con Databricks
