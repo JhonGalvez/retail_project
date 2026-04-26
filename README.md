@@ -87,6 +87,9 @@ Publiqué el **Retail Analytics Dashboard** en el workspace PROD con 7 paneles:
 
 🔗 **Dashboard**: [Ver en Databricks PROD](https://adb-7405604736822350.10.azuredatabricks.net/sql/dashboardsv3/01f13d01fcb21d079e2a0303a60bdebe)
 
+![Dashboard 1](dashboard/Dashboard_1.png)
+![Dashboard 2](dashboard/Dashboard_2.png)
+
 ## 🚀 Instalación y Configuración
 
 ### 1️⃣ Clonar el Repositorio
